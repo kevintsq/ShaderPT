@@ -181,7 +181,7 @@ int main(int argc, char *argv[]) {
     // Otherwise, we can't get function pointers to WGL extensions.
     wglMakeCurrent(deviceContext, wglContext);
 
-    // Load WGL extensions.
+    // Load WGL extensions
     gladLoadWGL(deviceContext);
 
     // We use OpenGL version 4.6 core profile and debug context for reasonable error messages.
@@ -206,7 +206,8 @@ int main(int argc, char *argv[]) {
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(MessageCallback, 0);
-    // Print Info
+    
+    // Print info
     printf("GL_VERSION: %s\n", glGetString(GL_VERSION));
     printf("GL_VENDOR: %s\n", glGetString(GL_VENDOR));
     printf("GL_SHADING_LANGUAGE_VERSION: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
