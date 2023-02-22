@@ -34,6 +34,10 @@ const float A = Nt - Nc;  // Schlick's approximation
 const float B = Nt + Nc;  // Schlick's approximation
 const float R0 = (A * A) / (B * B);  // Schlick's approximation
 
+const float DIFFUSE = 0;
+const float SPECULAR = 1;
+const float REFRACTIVE = 2;
+
 vec3 rand(uvec3 x) {  // random number generator
     for (int i = 0; i < 3; i++) {
         x = ((x >> 8U) ^ x.yzx) * 1103515245U;
@@ -122,7 +126,7 @@ void main() {  // main ray tracing function
             vec3 orientedNormal = dot(normal, ray.direction) < 0 ? normal : - normal;
             vec3 reflectionDirection = reflect(ray.direction, normal);  // reflection direction
 
-            if (nearestObject.color.w == 0) {  // DIFFUSE
+            if (nearestObject.color.w == DIFFUSE) {
                 float r1 = 2 * PI * random.x;  // random angle around the normal
                 float r2 = random.y;  // random distance from the center of the normal
                 float r2s = sqrt(r2);  // cosine sampling
@@ -131,9 +135,9 @@ void main() {  // main ray tracing function
                 vec3 u = normalize((cross(abs(w.x) > 0.1 ? vec3(0, 1, 0): vec3(1, 0, 0), w)));  // u is perpendicular to the normal w
                 vec3 v = cross(w, u);  // v is perpendicular to both w and u
                 ray = Ray(hitPoint, normalize(u * cos(r1) * r2s + v * sin(r1) * r2s + w * sqrt(1 - r2)));  // random reflection ray
-            } else if (nearestObject.color.w == 1) {  // SPECULAR
+            } else if (nearestObject.color.w == SPECULAR) {
                 ray = Ray(hitPoint, reflectionDirection);  // reflect ray
-            } else if (nearestObject.color.w == 2) {  // REFRACTIVE
+            } else if (nearestObject.color.w == REFRACTIVE) {
                 bool into = normal == orientedNormal;  // is ray entering or exiting glass?
                 float nnt = into ? NcNt : NtNc;  // ratio of indices of refraction
                 float ddn = dot(ray.direction, orientedNormal);  // cosine of angle between ray and normal
