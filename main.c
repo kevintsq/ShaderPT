@@ -44,12 +44,12 @@ Sphere spheres[] = {  // center.xyz, radius  |  emission.xyz, 0  |  color.rgb, m
 };
 
 void PrintLastError(const char *name) {
-    LPSTR msg;
-    FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-                  NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPSTR) &msg, 0, NULL);
-    MessageBox(NULL, msg, name, MB_OK | MB_ICONERROR);
+    char *msg;
+    FormatMessageA(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+                   NULL, GetLastError(), MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (char *) &msg, 0, NULL);
+    MessageBoxA(NULL, msg, name, MB_OK | MB_ICONERROR);
     LocalFree(msg);
-    exit(1);
+    exit(EXIT_FAILURE);
 }
 
 void CheckProgramStatus(GLuint program) {
