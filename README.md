@@ -79,8 +79,7 @@ Welcome to convert the following code to GLSL, i.e. to implement “sampled ligh
    if (depth > RUSSIAN_ROULETTE_THRESH) {
        if (random.z >= p) {
        	break;
-       }
-       else {
+       } else {
        	accmat /= p;  // scale accumulated material by reflectance
        }
    }
