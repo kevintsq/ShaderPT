@@ -8,9 +8,8 @@ Sorry, most of the content of this document is currently only available in Chine
 
 Welcome to convert the following code to GLSL, i.e. to implement “sampled lights”, including “sampled spheres by solid angle” and “shadow rays.”
 
-![image-20230101011707948](README.assets/image-20230101011707948.png)
-
-<img src="README.assets/image-20230101011731361.png" alt="image-20230101011731361" style="zoom:40%;" />
+<img src="README.assets/image-20230101011707948.png" alt="image-20230101011707948" style="width: 80%;" />
+<img src="README.assets/image-20230101011731361.png" alt="image-20230101011731361" style="width: 56%;" />
 
 ## 一、实现功能
 
@@ -49,27 +48,27 @@ Welcome to convert the following code to GLSL, i.e. to implement “sampled ligh
 
 1. 模拟光照
 
-   <img src="README.assets/image-20221231233956487.png" alt="image-20221231233956487" style="zoom: 40%;" />
+<img src="README.assets/image-20221231233956487.png" alt="image-20221231233956487" style="width: 20%;" />
 
    渲染方程
 
-   <img src="README.assets/image-20221231234044854.png" alt="image-20221231234044854" style="zoom:40%;" />
+<img src="README.assets/image-20221231234044854.png" alt="image-20221231234044854" style="width: 50%;" />
 
    其中使用蒙特卡洛法 + “帐篷滤波器”，可以得到更平滑的图片。
 
-   ![image-20230101003404656](README.assets/image-20230101003404656.png)
+<img src="README.assets/image-20230101003404656.png" alt="image-20230101003404656" style="width: 66%;" />
 
-   ![image-20230101003351029](README.assets/image-20230101003351029.png)
+<img src="README.assets/image-20230101003351029.png" alt="image-20230101003351029" style="width: 66%;" />
 
 2. 算法伪代码
 
-   <img src="README.assets/image-20221231234142772.png" alt="image-20221231234142772" style="zoom:40%;" />
+<img src="README.assets/image-20221231234142772.png" alt="image-20221231234142772" style="width: 40%;" />
 
    实现过程中，将所有图元均用球体表示，墙作为半径巨大的球，可以统一光线求交的代码。
 
-   <img src="README.assets/image-20230101003944748.png" alt="image-20230101003944748" style="zoom:50%;" />
+<img src="README.assets/image-20230101003944748.png" alt="image-20230101003944748" style="width: 20%;" />
 
-   <img src="README.assets/image-20230101003954205.png" alt="image-20230101003954205" style="zoom:50%;" />
+<img src="README.assets/image-20230101003954205.png" alt="image-20230101003954205" style="width: 50%;" />
 
    使用了俄罗斯轮盘赌，随机停止继续追踪光线。
 
@@ -79,8 +78,7 @@ Welcome to convert the following code to GLSL, i.e. to implement “sampled ligh
    if (depth > RUSSIAN_ROULETTE_THRESH) {
        if (random.z >= p) {
        	break;
-       }
-       else {
+       } else {
        	accmat /= p;  // scale accumulated material by reflectance
        }
    }
@@ -88,13 +86,13 @@ Welcome to convert the following code to GLSL, i.e. to implement “sampled ligh
 
    分反射、散射、折射生成不同光线，并考虑全反射。
 
-   <img src="README.assets/image-20230101003605474.png" alt="image-20230101003605474" style="zoom:50%;" />
+   <img src="README.assets/image-20230101003605474.png" alt="image-20230101003605474" style="width: 20%;" />
 
-   <img src="README.assets/image-20230101003620346.png" alt="image-20230101003620346" style="zoom:50%;" />
+   <img src="README.assets/image-20230101003620346.png" alt="image-20230101003620346" style="width: 50%;" />
 
-   <img src="README.assets/image-20230101003721329.png" alt="image-20230101003721329" style="zoom:40%;" />
+   <img src="README.assets/image-20230101003721329.png" alt="image-20230101003721329" style="width: 15%;" />
 
-   <img src="README.assets/image-20230101003737144.png" alt="image-20230101003737144" style="zoom:40%;" />
+   <img src="README.assets/image-20230101003737144.png" alt="image-20230101003737144" style="width: 33%;" />
 
 3. 主程序：`main.c`，负责创建窗口、准备场景、准备缓冲区、编译链接着色器代码、切换缓冲区显示每一帧。
 

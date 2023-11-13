@@ -113,8 +113,7 @@ void main() {  // main ray tracing function
             if (depth > RUSSIAN_ROULETTE_THRESH) {
                 if (random.z >= p) {
                     break;
-                }
-                else {
+                } else {
                     accmat /= p;  // scale accumulated material by reflectance
                 }
             }
